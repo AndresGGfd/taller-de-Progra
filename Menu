@@ -1,0 +1,401 @@
+//------------------------------------------------------clase   MENU--------------------------------------------
+package cajero;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+
+/**
+ * Clase que representa el menú principal del cajero automático.
+ * Permite seleccionar diversas opciones de transacción y cambiar el idioma de la interfaz.
+ */
+public class menu extends javax.swing.JFrame {
+    private JComboBox<String> idiomasComboBox;
+    static String tarjeta;
+    static String cuenta;
+    public Fondo imagen = new Fondo();
+
+    /**
+     * Constructor de la clase menú.
+     * @param tarjeta Número de la tarjeta.
+     * @param cuenta Número de la cuenta.
+     */
+    public menu(String tarjeta, String cuenta) {
+        funcionalidad ddd = new funcionalidad();
+        
+        // Obtener el nombre del titular de la tarjeta.
+        String nomn = ddd.obtenerNombre("C:\\Users\\fband\\Downloads\\cajero (1)\\cajero\\tarjetas\\" + tarjeta + ".txt");
+
+        this.setContentPane(imagen);
+        initComponents();
+        transp(nomn, cuenta);
+        this.tarjeta = tarjeta;
+        this.cuenta = cuenta;
+
+        setResizable(false);
+
+        // Configuración de los botones con iconos.
+        saldo.setIcon(setIcono("/imagenes/constSaldo.png", saldo));
+        saldo.setPressedIcon(setIconoPrecionado("/imagenes/constSaldo.png", saldo, 30, 30));
+        
+        retirar.setIcon(setIcono("/imagenes/retirar.png", retirar));
+        retirar.setPressedIcon(setIconoPrecionado("/imagenes/retirar.png", retirar, 30, 30));
+
+        depositar.setIcon(setIcono("/imagenes/depositar.png", depositar));
+        depositar.setPressedIcon(setIconoPrecionado("/imagenes/depositar.png", depositar, 30, 30));
+
+        transferir.setIcon(setIcono("/imagenes/transferir.png", transferir));
+        transferir.setPressedIcon(setIconoPrecionado("/imagenes/transferir.png", transferir, 30, 30));
+
+        contra.setIcon(setIcono("/imagenes/contra.png", contra));
+        contra.setPressedIcon(setIconoPrecionado("/imagenes/contra.png", contra, 30, 30));
+
+        atras.setIcon(setIcono("/imagenes/atras.png", atras));
+        atras.setPressedIcon(setIconoPrecionado("/imagenes/atras.png", atras, 30, 30));
+
+        cambio.setIcon(setIcono("/imagenes/moneda.png", cambio));
+        cambio.setPressedIcon(setIconoPrecionado("/imagenes/moneda.png", cambio, 30, 30));
+    }
+
+    /**
+     * Método para cambiar los textos de la interfaz según el idioma seleccionado.
+     */
+    public void cambiarTextos() {
+        String leng = (String) idiomasComboBox.getSelectedItem();
+
+        if ("Русский".equals(leng)) {
+            texto1.setText("Имя:");
+            texto2.setText("Выберите тип транзакции, который вы хотите");
+        } else if ("English".equals(leng)) {
+            texto1.setText("Name:");
+            texto2.setText("Choose the type of Transaction you want");
+        } else if ("Español".equals(leng)) {
+            texto1.setText("Nombre");
+            texto2.setText("Elige el tipo de Transacción Que quieras");
+        }
+    }
+
+    /**
+     * Este método es llamado desde el constructor para inicializar los componentes.
+     * NO MODIFICAR este código. El contenido de este método es siempre generado por el Editor de Formularios.
+     */
+    @SuppressWarnings("unchecked")
+    private void initComponents() {
+        idiomas = new javax.swing.JComboBox<>();
+        retirar = new javax.swing.JButton();
+        depositar = new javax.swing.JButton();
+        contra = new javax.swing.JButton();
+        transferir = new javax.swing.JButton();
+        saldo = new javax.swing.JButton();
+        texto2 = new javax.swing.JLabel();
+        texto6 = new javax.swing.JLabel();
+        atras = new javax.swing.JButton();
+        texto1 = new javax.swing.JLabel();
+        texto4 = new javax.swing.JLabel();
+        BTNnombre = new javax.swing.JButton();
+        cambio = new javax.swing.JButton();
+        numCuentaLBL = new javax.swing.JLabel();
+
+        idiomas.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        idiomas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Español", "English", "Русский", " " }));
+        idiomas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idiomasActionPerformed(evt);
+            }
+        });
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        retirar.setBorderPainted(false);
+        retirar.setContentAreaFilled(false);
+        retirar.setFocusPainted(false);
+        retirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                retirarActionPerformed(evt);
+            }
+        });
+
+        depositar.setBorderPainted(false);
+        depositar.setContentAreaFilled(false);
+        depositar.setFocusPainted(false);
+        depositar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                depositarActionPerformed(evt);
+            }
+        });
+
+        contra.setBorderPainted(false);
+        contra.setContentAreaFilled(false);
+        contra.setFocusPainted(false);
+        contra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contraActionPerformed(evt);
+            }
+        });
+
+        transferir.setBorderPainted(false);
+        transferir.setContentAreaFilled(false);
+        transferir.setFocusPainted(false);
+        transferir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                transferirActionPerformed(evt);
+            }
+        });
+
+        saldo.setBorderPainted(false);
+        saldo.setContentAreaFilled(false);
+        saldo.setFocusPainted(false);
+        saldo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saldoActionPerformed(evt);
+            }
+        });
+
+        texto2.setFont(new java.awt.Font("Arial Black", 3, 36)); // NOI18N
+        texto2.setForeground(new java.awt.Color(0, 51, 102));
+        texto2.setText("Elige el tipo de Transacción que quieras ");
+
+        texto6.setBackground(new java.awt.Color(51, 51, 51));
+        texto6.setFont(new java.awt.Font("Arial Black", 3, 48)); // NOI18N
+        texto6.setText("BNB");
+
+        atras.setBorderPainted(false);
+        atras.setContentAreaFilled(false);
+        atras.setFocusPainted(false);
+        atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atrasActionPerformed(evt);
+            }
+        });
+
+        texto1.setFont(new java.awt.Font("Arial Black", 3, 24)); // NOI18N
+        texto1.setForeground(new java.awt.Color(0, 102, 153));
+        texto1.setText("Cuentas:");
+
+        texto4.setFont(new java.awt.Font("Arial Black", 3, 24)); // NOI18N
+        texto4.setForeground(new java.awt.Color(0, 102, 153));
+        texto4.setText("Nombre:");
+
+        BTNnombre.setFont(new java.awt.Font("Arial Black", 3, 24)); // NOI18N
+        BTNnombre.setForeground(new java.awt.Color(0, 102, 153));
+        BTNnombre.setText("jButton1");
+
+        cambio.setBorderPainted(false);
+        cambio.setContentAreaFilled(false);
+        cambio.setFocusPainted(false);
+        cambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambioActionPerformed(evt);
+            }
+        });
+
+        numCuentaLBL.setFont(new java.awt.Font("Arial Black", 3, 24)); // NOI18N
+        numCuentaLBL.setForeground(new java.awt.Color(0, 102, 153));
+        numCuentaLBL.setText("jLabel1");
+
+        // Configuración del diseño de la interfaz.
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(texto6, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(143, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(texto1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(53, 53, 53)
+                                .addComponent(idiomas, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(numCuentaLBL, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(214, 214, 214))
+                    .addComponent(texto2))
+                .addGap(210, 210, 210))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(texto4)
+                .addGap(18, 18, 18)
+                .addComponent(BTNnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(depositar, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cambio, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(84, 84, 84)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saldo, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transferir, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(texto6, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(idiomas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(texto1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(numCuentaLBL))
+                        .addGap(22, 22, 22)))
+                .addGap(30, 30, 30)
+                .addComponent(texto2)
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(texto4)
+                    .addComponent(BTNnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(depositar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saldo, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(retirar, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(transferir, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(contra, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cambio, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27))
+        );
+
+        pack();
+    }
+
+    private void idiomasActionPerformed(java.awt.event.ActionEvent evt) {
+        cambiarTextos();
+    }
+
+    private void retirarActionPerformed(java.awt.event.ActionEvent evt) {
+        retirar r = new retirar(tarjeta, cuenta);
+        r.setVisible(true);
+        this.setVisible(false);
+    }
+
+    private void depositarActionPerformed(java.awt.event.ActionEvent evt) {
+        depositar d = new depositar(tarjeta, cuenta);
+        d.setVisible(true);
+        this.setVisible(false);
+    }
+
+    private void contraActionPerformed(java.awt.event.ActionEvent evt) {
+        cambiarcontra c = new cambiarcontra(tarjeta, cuenta);
+        c.setVisible(true);
+        this.setVisible(false);
+    }
+
+    private void transferirActionPerformed(java.awt.event.ActionEvent evt) {
+        transferir t = new transferir(tarjeta, cuenta);
+        t.setVisible(true);
+        this.setVisible(false);
+    }
+
+    private void saldoActionPerformed(java.awt.event.ActionEvent evt) {
+        consultar c = new consultar(tarjeta, cuenta);
+        c.setVisible(true);
+        this.setVisible(false);
+    }
+
+    private void cambioActionPerformed(java.awt.event.ActionEvent evt) {
+        cambio c = new cambio(tarjeta, cuenta);
+        c.setVisible(true);
+        this.setVisible(false);
+    }
+
+    private void atrasActionPerformed(java.awt.event.ActionEvent evt) {
+        login l = new login();
+        l.setVisible(true);
+        this.setVisible(false);
+    }
+
+    /**
+     * Método para configurar la transparencia y los textos iniciales de la interfaz.
+     * @param nombre Nombre del titular de la tarjeta.
+     * @param cuenta Número de la cuenta.
+     */
+    public void transp(String nombre, String cuenta) {
+        BTNnombre.setText(nombre);
+        numCuentaLBL.setText(cuenta);
+    }
+
+    /**
+     * Método para establecer un icono en un botón.
+     * @param path Ruta del icono.
+     * @param boton Botón al que se le establecerá el icono.
+     * @return El icono configurado.
+     */
+    public Icon setIcono(String path, JButton boton) {
+        ImageIcon icon = new ImageIcon(getClass().getResource(path));
+        int ancho = boton.getWidth();
+        int alto = boton.getHeight();
+        ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT));
+        return icono;
+    }
+
+    /**
+     * Método para establecer un icono presionado en un botón.
+     * @param path Ruta del icono.
+     * @param boton Botón al que se le establecerá el icono.
+     * @param ancho Ancho del icono presionado.
+     * @param alto Alto del icono presionado.
+     * @return El icono presionado configurado.
+     */
+    public Icon setIconoPrecionado(String path, JButton boton, int ancho, int alto) {
+        ImageIcon icon = new ImageIcon(getClass().getResource(path));
+        int width = boton.getWidth() - ancho;
+        int height = boton.getHeight() - alto;
+        ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        return icono;
+    }
+
+    /**
+     * Clase interna que representa el fondo de la interfaz.
+     */
+    public class Fondo extends JPanel {
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/imagenes/fondo2.jpg")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
+
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new menu(tarjeta, cuenta).setVisible(true);
+            }
+        });
+    }
+
+    private javax.swing.JButton atras;
+    private javax.swing.JButton BTNnombre;
+    private javax.swing.JButton cambio;
+    private javax.swing.JButton contra;
+    private javax.swing.JButton depositar;
+    private javax.swing.JComboBox<String> idiomas;
+    private javax.swing.JLabel numCuentaLBL;
+    private javax.swing.JButton retirar;
+    private javax.swing.JButton saldo;
+    private javax.swing.JLabel texto1;
+    private javax.swing.JLabel texto2;
+    private javax.swing.JLabel texto4;
+    private javax.swing.JLabel texto6;
+    private javax.swing.JButton transferir;
+}
