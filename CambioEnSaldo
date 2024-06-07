@@ -1,0 +1,132 @@
+//------------------------------------------------CambioEnSaldo-----------------------------------------------------------------
+package cajero;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
+/**
+ * Clase para gestionar cambios en los saldos de cuentas.
+ */
+public class CambiosEnSaldo {
+    
+    /**
+     * Verifica si la cuenta existe.
+     * @param rutaArchivo Ruta del archivo de la cuenta.
+     * @return true si la cuenta existe, false en caso contrario.
+     */
+    public boolean verificarCuenta(String rutaArchivo) {
+        File archivo = new File(rutaArchivo);
+        return archivo.exists();
+    }
+    
+    /**
+     * Verifica si dos cuentas son la misma.
+     * @param rutaArchivo Ruta del archivo de la cuenta.
+     * @return true si las cuentas son las mismas, false en caso contrario.
+     */
+    public boolean verificarMisma(String rutaArchivo) {
+        File archivo = new File(rutaArchivo);
+        return archivo.exists();
+    }
+    
+    /**
+     * Verifica si las dos cuentas utilizan la misma moneda.
+     * @param archivo1 Ruta del primer archivo de cuenta.
+     * @param archivo2 Ruta del segundo archivo de cuenta.
+     * @return true si las cuentas utilizan la misma moneda, false en caso contrario.
+     */
+    public boolean verificarMonedaCoin(String archivo1, String archivo2) {
+        try (BufferedReader br1 = new BufferedReader(new FileReader(archivo1));
+             BufferedReader br2 = new BufferedReader(new FileReader(archivo2))) {
+             
+            String linea1 = br1.readLine();
+            String linea2 = br2.readLine();
+            
+            if (linea1 != null && linea1.length() >= 2 && linea2 != null && linea2.length() >= 2) {
+                String primerasDosLetras1 = linea1.substring(0, 2);
+                String primerasDosLetras2 = linea2.substring(0, 2);
+                
+                return primerasDosLetras1.equals(primerasDosLetras2);
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false; // En caso de error, retorna false
+        }
+    }
+    
+    /**
+     * Realiza una transferencia de dinero entre dos cuentas.
+     * @param cuenta1 Ruta del archivo de la primera cuenta.
+     * @param cuenta2 Ruta del archivo de la segunda cuenta.
+     * @param deposito Monto a transferir.
+     * @param cuentanumeral1 Número de la primera cuenta.
+     * @param cuentanumeral2 Número de la segunda cuenta.
+     */
+    public void transferirDinero(String cuenta1, String cuenta2, double deposito, String cuentanumeral1, String cuentanumeral2) {
+        double saldoCuenta1 = 0;
+        double saldoCuenta2 = 0;
+        String prefixCuenta1 = "";
+        String prefixCuenta2 = "";
+        
+        // Leer saldos de las cuentas
+        try (BufferedReader br1 = new BufferedReader(new FileReader(cuenta1));
+             BufferedReader br2 = new BufferedReader(new FileReader(cuenta2))) {
+            
+            // Leer el saldo de cuenta1
+            String linea1 = br1.readLine();
+            if (linea1 != null && linea1.contains(": ")) {
+                prefixCuenta1 = linea1.substring(0, linea1.indexOf(": ") + 2); // Obtener el prefijo "xx: "
+                saldoCuenta1 = Double.parseDouble(linea1.substring(linea1.indexOf(": ") + 2).trim());
+            }
+            
+            // Leer el saldo de cuenta2
+            String linea2 = br2.readLine();
+            if (linea2 != null && linea2.contains(": ")) {
+                prefixCuenta2 = linea2.substring(0, linea2.indexOf(": ") + 2); // Obtener el prefijo "xx: "
+                saldoCuenta2 = Double.parseDouble(linea2.substring(linea2.indexOf(": ") + 2).trim());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        
+        // Verificar saldo suficiente en cuenta1
+        if (saldoCuenta1 < deposito) {
+            JOptionPane.showMessageDialog(null, "SALDO INSUFICIENTE", "Error", JOptionPane.ERROR_MESSAGE);
+            return; // Terminar la función si el saldo es insuficiente
+        }
+        
+        // Decrementar el saldo de cuenta1 y sumar el depósito a cuenta2
+        saldoCuenta1 -= deposito;
+        saldoCuenta2 += deposito;
+
+        // Guardar el historial de transacciones (esto es opcional y depende de tu implementación)
+        historialTransacciones histT = new historialTransacciones(cuentanumeral1, cuentanumeral2, deposito);
+        histT.guardarIngreso();
+        histT.guardarDeposito();
+        
+        // Escribir los nuevos saldos en los archivos
+        try (BufferedWriter bw1 = new BufferedWriter(new FileWriter(cuenta1));
+             BufferedWriter bw2 = new BufferedWriter(new FileWriter(cuenta2))) {
+            
+            bw1.write(prefixCuenta1 + saldoCuenta1); // Escribir el prefijo y el nuevo saldo
+            bw1.newLine();
+            
+            bw2.write(prefixCuenta2 + saldoCuenta2); // Escribir el prefijo y el nuevo saldo
+            bw2.newLine();
+            
+            System.out.println("Transferencia exitosa.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Resto del código omitido por brevedad
+}
