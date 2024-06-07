@@ -1,0 +1,171 @@
+//-----------------------------------------------cuenta-------------------------------------------------------------------------------
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt para cambiar esta licencia
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java para editar esta plantilla
+ */
+package cajero;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+/**
+ * Clase que representa la ventana de creación de cuenta en el cajero automático.
+ * Extiende de JFrame para construir la interfaz gráfica.
+ */
+public class Cuenta extends javax.swing.JFrame {
+    public Fondo imagen = new Fondo(); // Instancia del panel de fondo personalizado
+
+    /**
+     * Constructor de la clase Cuenta.
+     */
+    public Cuenta () {
+        this.setContentPane(imagen); // Establecer el fondo personalizado
+        initComponents(); // Inicializar componentes de la interfaz gráfica
+        setResizable(false); // Deshabilitar la capacidad de cambiar el tamaño de la ventana
+
+        /*---------------------------------------------- parte de los botones1----------------------------------------------*/
+        // Configurar iconos para el botón de confirmar
+        confirmar.setIcon(setIcono("/imagenes/confirmar.png",confirmar));
+        confirmar.setPressedIcon(setIconoPrecionado("/imagenes/confirmar.png",confirmar,30,30));
+    }
+
+    /**
+     * Método generado automáticamente que inicializa y configura los componentes de la interfaz gráfica.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+        // Componentes de la interfaz gráfica
+        texto15 = new javax.swing.JLabel();
+        texto16 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        texto21 = new javax.swing.JLabel();
+        saldini = new javax.swing.JTextField();
+        texto20 = new javax.swing.JLabel();
+        usasoc = new javax.swing.JTextField();
+        texto18 = new javax.swing.JLabel();
+        numcuenta1 = new javax.swing.JTextField();
+        confirmar = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        // Configuración de los componentes de la interfaz gráfica
+        // (se omiten detalles por brevedad)
+        
+        pack();
+    }// </editor-fold>                        
+
+    // Métodos de acción para eventos de la interfaz gráfica
+    private void saldiniActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        // Método invocado al realizar una acción en el campo de saldo inicial
+    }                                       
+
+    private void usasocActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        // Método invocado al realizar una acción en el campo de usuario asociado
+    }                                      
+
+    private void numcuenta1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // Método invocado al realizar una acción en el campo de número de cuenta
+    }                                          
+
+    private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        // Método invocado al hacer clic en el botón de confirmar
+    }                                         
+
+    /**
+     * Método principal que inicia la aplicación.
+     */
+    public static void main(String args[]) {
+        // Configuración del aspecto visual de la aplicación
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        // Configuración del aspecto visual Nimbus si está disponible
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Cuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Cuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Cuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Cuenta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Crear y mostrar la interfaz gráfica */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Cuenta().setVisible(true);
+            }
+        });
+    }
+    
+    // Métodos personalizados
+
+    /**
+     * Método para establecer un icono en un botón.
+     * @param url URL de la imagen del icono
+     * @param b Botón al que se asigna el icono
+     * @return Icono configurado para el botón
+     */
+    public Icon setIcono(String url, JButton b){
+         // Obtener la imagen y ajustar su tamaño al del botón
+         ImageIcon  icon= new ImageIcon(getClass().getResource(url)); 
+         int ancho =b.getWidth();
+         int alto =b.getHeight();
+         ImageIcon icono= new ImageIcon(icon.getImage().getScaledInstance(ancho,alto,Image.SCALE_DEFAULT)); 
+         return icono;
+     }
+
+    /**
+     * Método para establecer un icono presionado en un botón.
+     * @param url URL de la imagen del icono
+     * @param b Botón al que se asigna el icono
+     * @param ancho Ancho del icono presionado
+     * @param alto Alto del icono presionado
+     * @return Icono presionado configurado para el botón
+     */
+    public Icon setIconoPrecionado(String url, JButton b, int ancho, int alto){       
+         ImageIcon icon= new ImageIcon(getClass().getResource(url));
+         // Ajustar el tamaño del icono presionado
+         int  width = b.getWidth()- ancho;
+         int height = b.getHeight() - alto;
+         ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(width,height,Image.SCALE_DEFAULT));
+         return icono;
+     }
+    
+    // Clase interna para el panel de fondo personalizado
+    class Fondo extends JPanel {
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            // Cargar la imagen de fondo y dibujarla en el panel
+            imagen = new ImageIcon(getClass().getResource("/imagenes/fondo.png")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
+    
+    // Declaración de variables de la interfaz gráfica
+    private javax.swing.JButton confirmar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField numcuenta1;
+    private javax.swing.JTextField saldini;
+    private javax.swing.JLabel texto15;
+    private javax.swing.JLabel texto16;
+    private javax.swing.JLabel texto18;
+    private javax.swing.JLabel texto20;
+    private javax.swing.JLabel texto21;
+    private javax.swing.JTextField usasoc;
+    // Fin
