@@ -1,0 +1,386 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package cajero;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+/**
+ * Clase que representa la ventana de transacción III.
+ * Permite al usuario realizar transferencias de dinero a otra cuenta.
+ */
+public class transaccionIII extends javax.swing.JFrame {
+    // Variables para almacenar información de cuentas y tarjetas
+    static String cuenta;
+    static String tarjeta;
+    static String cuenta2;
+    // Panel de fondo personalizado
+    public Fondo imagen = new Fondo();  
+
+    /**
+     * Constructor de la clase.
+     * @param cuenta El número de cuenta del usuario.
+     * @param tarjeta El número de tarjeta del usuario.
+     * @param cuenta2 El número de cuenta a la que se transferirá el dinero.
+     */
+    public transaccionIII(String cuenta,String tarjeta,String cuenta2) {
+        // Inicialización de variables
+        this.cuenta=cuenta;
+        this.tarjeta=tarjeta;
+        this.cuenta2=cuenta2;
+        // Configuración del panel de fondo
+        this.setContentPane(imagen);
+        initComponents();
+        setResizable(false);
+        // Configuración de botones
+        saldo7.setIcon(setIcono("/imagenes/otroMonto.png",saldo7));
+        saldo7.setPressedIcon(setIconoPrecionado("/imagenes/otroMonto.png",saldo7,30,30));
+        atras.setIcon(setIcono("/imagenes/atras.png",atras));
+        atras.setPressedIcon(setIconoPrecionado("/imagenes/atras.png",atras,30,30));
+    }
+    
+    // Instancia de la clase CambiosEnSaldo para realizar cambios en el saldo
+    CambiosEnSaldo cambio = new CambiosEnSaldo();
+
+    /**
+     * Método generado automáticamente para inicializar componentes.
+     * WARNING: NO modifique este código. El contenido de este método se regenera automáticamente por el Editor de formularios.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+
+        texto2 = new javax.swing.JLabel();
+        texto1 = new javax.swing.JLabel();
+        BTNCINCUENTA = new javax.swing.JButton();
+        BTNSETENTA = new javax.swing.JButton();
+        BTNCIEN = new javax.swing.JButton();
+        BTNCIENTOCINCUENTA = new javax.swing.JButton();
+        BTNDOSIENTOS = new javax.swing.JButton();
+        atras = new javax.swing.JButton();
+        BTONDiez = new javax.swing.JButton();
+        saldo7 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        // Configuración de componentes gráficos (etiquetas y botones)
+        texto2.setFont(new java.awt.Font("Arial Black", 3, 36)); // NOI18N
+        texto2.setForeground(new java.awt.Color(0, 51, 102));
+        texto2.setText("Elige el tipo de monto que quieras transferir");
+
+        texto1.setBackground(new java.awt.Color(51, 51, 51));
+        texto1.setFont(new java.awt.Font("Arial Black", 3, 48)); // NOI18N
+        texto1.setText("BNB");
+
+        BTNCINCUENTA.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        BTNCINCUENTA.setForeground(new java.awt.Color(0, 0, 0));
+        BTNCINCUENTA.setText("50");
+        BTNCINCUENTA.setBorderPainted(false);
+        BTNCINCUENTA.setFocusPainted(false);
+        BTNCINCUENTA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNCINCUENTAActionPerformed(evt);
+            }
+        });
+
+        BTNSETENTA.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        BTNSETENTA.setText("70");
+        BTNSETENTA.setContentAreaFilled(false);
+        BTNSETENTA.setFocusPainted(false);
+        BTNSETENTA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNSETENTAActionPerformed(evt);
+            }
+        });
+
+        BTNCIEN.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        BTNCIEN.setText("100");
+        BTNCIEN.setContentAreaFilled(false);
+        BTNCIEN.setFocusPainted(false);
+        BTNCIEN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNCIENActionPerformed(evt);
+            }
+        });
+
+        BTNCIENTOCINCUENTA.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        BTNCIENTOCINCUENTA.setText("150");
+        BTNCIENTOCINCUENTA.setContentAreaFilled(false);
+        BTNCIENTOCINCUENTA.setFocusPainted(false);
+        BTNCIENTOCINCUENTA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNCIENTOCINCUENTAActionPerformed(evt);
+            }
+        });
+
+        BTNDOSIENTOS.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        BTNDOSIENTOS.setText("200");
+        BTNDOSIENTOS.setContentAreaFilled(false);
+        BTNDOSIENTOS.setFocusPainted(false);
+        BTNDOSIENTOS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNDOSIENTOSActionPerformed(evt);
+            }
+        });
+
+        atras.setBorderPainted(false);
+        atras.setContentAreaFilled(false);
+        atras.setFocusPainted(false);
+        atras.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                atrasActionPerformed(evt);
+            }
+        });
+
+        BTONDiez.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        BTONDiez.setText("10");
+        BTONDiez.setContentAreaFilled(false);
+        BTONDiez.setFocusPainted(false);
+        BTONDiez.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTONDiezActionPerformed(evt);
+            }
+        });
+
+        saldo7.setBorderPainted(false);
+        saldo7.setContentAreaFilled(false);
+        saldo7.setFocusPainted(false);
+        saldo7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saldo7ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(texto1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BTONDiez, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTNCINCUENTA, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTNSETENTA, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BTNCIEN, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTNCIENTOCINCUENTA, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BTNDOSIENTOS, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(80, 80, 80))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(139, 139, 139)
+                        .addComponent(texto2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(saldo7, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(407, 407, 407))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(texto1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(atras, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(texto2)
+                        .addGap(56, 56, 56)
+                        .addComponent(BTONDiez, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BTNCIEN, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(64, 64, 64)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BTNCINCUENTA, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BTNCIENTOCINCUENTA, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(BTNSETENTA, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(98, 98, 98)
+                        .addComponent(BTNDOSIENTOS, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(saldo7, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(133, 133, 133))
+        );
+
+        pack();
+    }// </editor-fold>                        
+
+    // Método que se ejecuta cuando se presiona el botón "atras"
+    private void atrasActionPerformed(java.awt.event.ActionEvent evt) {                                      
+        // Vuelve al menú principal
+        menu v = new menu(tarjeta,cuenta);
+        v.setVisible(true);
+        dispose();
+    }                                     
+
+    // Método que se ejecuta cuando se presiona el botón "saldo7"
+    private void saldo7ActionPerformed(java.awt.event.ActionEvent evt) {                                       
+        // Abre la ventana para ingresar el monto de la transacción
+        MontoTransacciones v = new MontoTransacciones(cuenta,tarjeta,cuenta2);
+        v.setVisible(true);
+        dispose();
+    }                                      
+
+    // Método que se ejecuta cuando se presiona el botón "BTONDiez"
+    private void BTONDiezActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // Transfiere $10
+        cambio.transferirDinero("C:\\Users\\fband\\Downloads\\cajero (1)\\cajero\\cuentas\\"+cuenta+".txt","C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta2+".txt",10.0,cuenta,cuenta2);
+        // Retorna al menú principal
+        menu i = new menu(tarjeta,cuenta);
+        i.setVisible(true);
+        dispose(); 
+    }                                        
+
+    // Método que se ejecuta cuando se presiona el botón "BTNCINCUENTA"
+    private void BTNCINCUENTAActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // Transfiere $50
+        cambio.transferirDinero("C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta+".txt","C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta2+".txt",50.0,cuenta,cuenta2);
+        // Retorna al menú principal
+        menu i = new menu(tarjeta,cuenta);
+        i.setVisible(true);
+        dispose(); 
+    }                                            
+
+    // Método que se ejecuta cuando se presiona el botón "BTNDOSIENTOS"
+    private void BTNDOSIENTOSActionPerformed(java.awt.event.ActionEvent evt) {                                             
+        // Transfiere $200
+        cambio.transferirDinero("C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta+".txt","C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta2+".txt",200.0,cuenta,cuenta2);
+        // Retorna al menú principal
+        menu i = new menu(tarjeta,cuenta);
+        i.setVisible(true);
+        dispose(); 
+    }                                            
+
+    // Método que se ejecuta cuando se presiona el botón "BTNSETENTA"
+    private void BTNSETENTAActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // Transfiere $70
+        cambio.transferirDinero("C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta+".txt","C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta2+".txt",70.0,cuenta,cuenta2);
+        // Retorna al menú principal
+        menu i = new menu(tarjeta,cuenta);
+        i.setVisible(true);
+        dispose();
+    }                                          
+
+    // Método que se ejecuta cuando se presiona el botón "BTNCIEN"
+    private void BTNCIENActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        // Transfiere $100
+        cambio.transferirDinero("C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta+".txt","C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta2+".txt",100.0,cuenta,cuenta2);
+        // Retorna al menú principal
+        menu i = new menu(tarjeta,cuenta);
+        i.setVisible(true);
+        dispose(); 
+    }                                       
+
+    // Método que se ejecuta cuando se presiona el botón "BTNCIENTOCINCUENTA"
+    private void BTNCIENTOCINCUENTAActionPerformed(java.awt.event.ActionEvent evt) {                                                   
+        // Transfiere $150
+        cambio.transferirDinero("C:\\Users\\fband\\Downloads\\cajero (1)\\cajeroo\\cuentas\\"+cuenta+".txt","C:\\Users\\andres\\Documents\\NetBeansProjects\\cajero\\cuentas\\"+cuenta2+".txt",150.0,cuenta,cuenta2);
+        // Retorna al menú principal
+        menu i = new menu(tarjeta,cuenta);
+        i.setVisible(true);
+        dispose(); 
+    }                                                  
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(transaccionIII.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(transaccionIII.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(transaccionIII.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(transaccionIII.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new transaccionIII(cuenta,tarjeta,cuenta2).setVisible(true);         
+            }
+        });
+    }
+    
+    // Clase para el panel de fondo personalizado
+    class Fondo extends JPanel {
+
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/imagenes/fondo.png")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
+    
+    // Método para establecer el ícono de un botón
+    public Icon setIcono(String url,JButton b){
+        ImageIcon  icon= new ImageIcon(getClass().getResource(url)); 
+        int ancho =b.getWidth();
+        int alto =b.getHeight();
+        ImageIcon icono= new ImageIcon(icon.getImage().getScaledInstance(ancho,alto,Image.SCALE_DEFAULT)); 
+        return icono;
+    }
+    
+    // Método para establecer el ícono presionado de un botón
+    public Icon setIconoPrecionado(String url,JButton b,int ancho,int alto){
+        ImageIcon icon= new ImageIcon(getClass().getResource(url));
+        int  width = b.getWidth()- ancho;
+        int height = b.getHeight() - alto;
+        ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(width,height,Image.SCALE_DEFAULT));
+        return icono;
+    }
+    
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton BTNCIEN;
+    private javax.swing.JButton BTNCIENTOCINCUENTA;
+    private javax.swing.JButton BTNCINCUENTA;
+    private javax.swing.JButton BTNDOSIENTOS;
+    private javax.swing.JButton BTNSETENTA;
+    private javax.swing.JButton BTONDiez;
+    private javax.swing.JButton atras;
+    private javax.swing.JButton saldo7;
+    private javax.swing.JLabel texto1;
+    private javax.swing.JLabel texto2;
+    // End of variables declaration                   
+}
+
