@@ -1,0 +1,22 @@
+//-------------------------------------------------cajeroAutomatico---------------------------------------------------
+//--------------------------este primer codigo  es  la clase principal-----------------------------------
+//----------------------------------------------------MENU------------------------------------------------------
+package cajero;
+
+/**
+ *
+ * @author andres
+ */
+public class Cajero {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+         inicio i = new inicio();
+        
+         i.setVisible(true);
+    }
+    
+}
+        
