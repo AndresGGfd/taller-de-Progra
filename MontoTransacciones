@@ -1,0 +1,171 @@
+//----------------------------------------------------------------MontoTransacciones-----------------------------------------------------------------------------
+
+
+
+
+package cajero;
+
+import static cajero.transaccionIII.cuenta;
+import static cajero.transaccionIII.cuenta2;
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+public class MontoTransacciones extends javax.swing.JFrame {
+    static String cuenta;
+    static String tarjeta;
+    static String cuenta2;
+    public Fondo imagen = new Fondo();  
+
+    /**
+     * Constructor de la clase MontoTransacciones.
+     * @param cuenta Número de cuenta.
+     * @param tarjeta Número de tarjeta asociado a la cuenta.
+     * @param cuenta2 Número de la segunda cuenta involucrada en la transacción (para transferencias).
+     */
+    public MontoTransacciones(String cuenta, String tarjeta, String cuenta2) {
+        this.cuenta = cuenta;
+        this.tarjeta = tarjeta;
+        this.cuenta2 = cuenta2;
+        this.setContentPane(imagen);
+        initComponents();
+        setResizable(false);
+        /*---------------------------------------------- parte de los botones1----------------------------------------------*/
+        confirmar.setIcon(setIcono("/imagenes/confirmar.png", confirmar));
+        confirmar.setPressedIcon(setIconoPrecionado("/imagenes/confirmar.png", confirmar, 30, 30));
+    }
+    
+    CambiosEnSaldo cambio = new CambiosEnSaldo();
+
+    /**
+     * Método generado automáticamente que inicializa y configura los componentes de la interfaz gráfica.
+     */
+    @SuppressWarnings("unchecked")
+    private void initComponents() {
+        texto6 = new javax.swing.JLabel();
+        texto1 = new javax.swing.JLabel();
+        texto4 = new javax.swing.JLabel();
+        numCuenta = new javax.swing.JTextField();
+        confirmar = new javax.swing.JButton();
+        imagen2 = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        texto6.setBackground(new java.awt.Color(51, 51, 51));
+        texto6.setFont(new java.awt.Font("Arial Black", 3, 48));
+        texto6.setText("BNB");
+
+        texto1.setFont(new java.awt.Font("Arial Black", 3, 36));
+        texto1.setForeground(new java.awt.Color(0, 102, 153));
+        texto1.setText("Monto que deseas Depositar/Retirar");
+
+        texto4.setFont(new java.awt.Font("Arial Black", 3, 36));
+        texto4.setForeground(new java.awt.Color(0, 51, 102));
+        texto4.setText("Ingrese  el monto:");
+
+        numCuenta.setBackground(new java.awt.Color(255, 204, 51));
+        numCuenta.setFont(new java.awt.Font("Arial", 0, 24));
+        numCuenta.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        numCuenta.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        confirmar.setBorderPainted(false);
+        confirmar.setContentAreaFilled(false);
+        confirmar.setFocusPainted(false);
+        confirmar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmarActionPerformed(evt);
+            }
+        });
+
+        imagen2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo1.png")));
+
+        // Configuración del layout
+        // ...
+
+        pack();
+    }
+
+    /**
+     * Método llamado al hacer clic en el botón "Confirmar".
+     * Realiza la transacción correspondiente.
+     */
+    private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        RetiroMonto();
+    }                                         
+
+    /**
+     * Método para realizar la transacción de retiro o depósito.
+     */
+    public void RetiroMonto() {
+        String ingreso = numCuenta.getText();
+        double dinero = Double.parseDouble(ingreso);
+        
+        // Realizar la transferencia de dinero entre cuentas
+        cambio.transferirDinero(
+            "C:\\Users\\fband\\Downloads\\cajero (1)\\cajero\\cuentas\\" + cuenta + ".txt",
+            "C:\\Users\\andres\\Documents\\NetBeansProjects\\cajero\\cuentas\\" + cuenta2 + ".txt",
+            dinero,
+            cuenta,
+            cuenta2
+        );
+        
+        // Abrir la ventana de menú principal
+        menu i = new menu(tarjeta, cuenta);
+        i.setVisible(true);
+        dispose(); 
+    }
+    
+    /**
+     * Método principal que inicia la aplicación.
+     */
+    public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new MontoTransacciones(cuenta, tarjeta, cuenta2).setVisible(true);
+            }
+        });
+    }
+    
+    // Clase interna para el panel de fondo personalizado
+    class Fondo extends JPanel {
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/imagenes/fondo.png")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
+    
+    // Método para configurar un icono para un botón
+    public Icon setIcono(String url, JButton b) {
+        ImageIcon  icon = new ImageIcon(getClass().getResource(url)); 
+        int ancho = b.getWidth();
+        int alto = b.getHeight();
+        ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT)); 
+        return icono;
+    }
+    
+    // Método para configurar un icono para el estado presionado de un botón
+    public Icon setIconoPrecionado(String url, JButton b, int ancho, int alto) {
+        ImageIcon icon = new ImageIcon(getClass().getResource(url));
+        int width = b.getWidth() - ancho;
+        int height = b.getHeight() - alto;
+        ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT));
+        return icono;
+    }
+    
+    // Variables declaration
+    private javax.swing.JButton confirmar;
+    private javax.swing.JLabel imagen2;
+    private javax.swing.JTextField numCuenta;
+    private javax.swing.JLabel texto1;
+    private javax.swing.JLabel texto4;
+    private javax.swing.JLabel texto6;
+    // End of variables declaration
+}
