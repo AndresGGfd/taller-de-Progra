@@ -1,1 +1,236 @@
+/*
+ * La clase SaldoCuentas representa un JFrame que muestra el saldo y el historial de transacciones de una cuenta bancaria.
+ * Este JFrame es parte de una aplicación de cajero automático.
+ */
+package cajero;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ * JFrame que muestra el saldo y el historial de transacciones de una cuenta bancaria.
+ * Este JFrame es parte de una aplicación de cajero automático.
+ * @author andres
+ */
+public class SaldoCuentas extends javax.swing.JFrame {
+    // Panel personalizado para el fondo
+    public Fondo imagen = new Fondo(); 
+    // Modelo de tabla para el historial de transacciones
+    DefaultTableModel dt = new DefaultTableModel();
+    // ComboBox para seleccionar idiomas
+    JComboBox<String> idiomas;
+    // Variables estáticas para el número de cuenta y la tarjeta
+    static String  cuentat;
+    static String  tarjeta;
+    // Variable para almacenar el saldo
+    double dato;
+
+    /**
+     * Constructor de la clase SaldoCuentas.
+     * @param cuentat Número de cuenta
+     * @param tarjeta Número de tarjeta
+     */
+    public SaldoCuentas(String cuentat, String tarjeta) {   
+        this.cuentat=cuentat;
+        this.tarjeta=tarjeta;
+        // Instancia de la clase funcionalidad para obtener el saldo
+        funcionalidad fun = new funcionalidad();
+        // Obtener el saldo de la cuenta
+        dato = (double)fun.leerSaldo("C:\\Users\\fband\\Downloads\\cajero (1)\\cajero\\cuentas\\"+cuentat+".txt");
+        // Obtener el tipo de moneda de la cuenta
+        String monedaCuenta = processFile("C:\\Users\\fband\\Downloads\\cajero (1)\\cajero\\cuentas\\"+cuentat+".txt");
+        // Instancia de la clase historial para obtener el historial de transacciones
+        historial his = new historial(cuentat,tarjeta);
+        // Obtener el historial de transacciones de la cuenta
+        String dattt = his.findMatchingLines("C:\\Users\\fband\\Downloads\\cajero (1)\\cajero\\registro\\registros.txt",cuentat);
+        // Mostrar el historial de transacciones en la consola
+        System.out.println(dattt);
+        // Establecer el fondo del JFrame
+        this.setContentPane(imagen);
+        // Inicializar los componentes del JFrame
+        initComponents();
+        // Configurar la interfaz con la información obtenida
+        transpC(cuentat,dato,dattt,monedaCuenta);
+        // Definir las columnas del modelo de tabla
+        String []  nombres = new String []{"Fecha","Hora","TipoTransaccion","Saldo","Cuenta"};
+        dt.setColumnIdentifiers(nombres);
+        // Desactivar la capacidad de cambiar el tamaño del JFrame
+        setResizable(false);
+        /*---------------------------------------------- parte de los botones1----------------------------------------------*/
+        atras.setIcon(setIcono("/imagenes/atras.png",atras));
+        atras.setPressedIcon(setIconoPrecionado("/imagenes/atras.png",atras,30,30));
+        /*---------------------------------------------- parte de los botones2----------------------------------------------*/
+        act.setIcon(setIcono("/imagenes/act.png",act));
+        act.setPressedIcon(setIconoPrecionado("/imagenes/act.png",act,30,30));
+    }
+    
+    // Métodos para procesar el archivo de configuración de la cuenta y reconocer la moneda
+    
+    public static String processFile(String filePath) {
+        StringBuilder result = new StringBuilder();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String message = recognizeCurrency(line);
+                if (!message.isEmpty()) {
+                    if (result.length() > 0) {
+                        result.append("\n"); // Añadir un salto de línea entre mensajes
+                    }
+                    result.append(message);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result.toString();
+    }
+
+    public static String recognizeCurrency(String line) {
+        if (line.contains("eu:")) {
+            return "SU CUENTA ESTA EN EUROS";
+        } else if (line.contains("dlr:")) {
+            return "SU CUENTA ESTA EN DOLARES";
+        } else if (line.contains("bs:")) {
+            return "SU CUENTA ESTA EN BOLIVIANOS";
+        } else {
+            return "";
+        }
+    }
+    
+    // Método para cambiar los textos de la interfaz según el idioma seleccionado
+    
+    public void cambiarTextos() {
+        if ("Русский".equals((String) idiomas.getSelectedItem())) {
+            // Cambiar los textos de los componentes
+            texto1.setText("ДОБРО ПОЖАЛОВАТЬ");
+            texto2.setText("БАНАНИТА НАЦИОНАЛЬНЫЙ БАНК");
+            texto3.setText("(Внимание 24 часа в сутки)");
+        
+        } else {
+            if ("English".equals((String) idiomas.getSelectedItem())) {
+                // Cambiar los textos de los componentes
+                texto1.setText("WELCOME");
+                texto2.setText("BANANITA NATIONAL BANK");
+                texto3.setText("(Attention 24 hours a day)");
+           } else {
+                if ("Español".equals((String) idiomas.getSelectedItem())) {
+                    // Cambiar los textos de los componentes
+                    texto1.setText("BIENVENIDOS");
+                    texto2.setText("BANCO NACIONAL BANANITA");
+                    texto3.setText("(Atención las 24 hrs del día)");
+                }
+            }
+        }
+    }
+    
+    // Método para convertir texto en formato HTML
+    
+    public String StrToHtml(String texto) {
+        return "<html>" + texto.replace("\n", "<br>") + "</html>";
+    }
+    
+    // Método para configurar la interfaz con los datos de la cuenta y el historial de transacciones
+    
+    public void transpC(String nom, double dato, String textos, String datomoneda){
+        String datos = String.valueOf(dato);
+        cuenta.setText(nom);
+        cuenta.setContentAreaFilled(false);
+        cuenta.setBorderPainted(false);
+        saldo.setText(datos);
+        saldo.setContentAreaFilled(false);
+        saldo.setBorderPainted(false);
+        labeltxt.setText(StrToHtml(textos)+"\n");
+        saldo1.setText(datomoneda);
+        saldo1.setContentAreaFilled(false);
+        saldo1.setBorderPainted(false);
+    }
+    
+    /**
+     * Este método se llama desde el constructor para inicializar
+      */
+ public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(SaldoCuentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(SaldoCuentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(SaldoCuentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(SaldoCuentas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new SaldoCuentas(cuentat,tarjeta).setVisible(true);
+            }
+        });
+    }
+    
+       
+    class Fondo extends JPanel {
+
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/imagenes/fondo.png")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
+     //  cambiar el  fondo del  boton y darle efecto de movimiento
+     public Icon setIcono(String url,JButton b){
+         ImageIcon  icon= new ImageIcon(getClass().getResource(url)); 
+         int ancho =b.getWidth();
+         int alto =b.getHeight();
+         ImageIcon icono= new ImageIcon(icon.getImage().getScaledInstance(ancho,alto,Image.SCALE_DEFAULT)); 
+         return icono;
+     }
+     public Icon setIconoPrecionado(String url,JButton b,int ancho,int alto){
+       
+         ImageIcon icon= new ImageIcon(getClass().getResource(url));
+          int  width = b.getWidth()- ancho;
+          int height = b.getHeight() - alto;
+          ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(width,height,Image.SCALE_DEFAULT));
+          return icono;
+     }
+    // Variables declaration - do not modify                     
+    private javax.swing.JButton act;
+    private javax.swing.JButton atras;
+    private javax.swing.JToggleButton cuenta;
+    private javax.swing.JLabel labeltxt;
+    private javax.swing.JToggleButton saldo;
+    private javax.swing.JToggleButton saldo1;
+    private javax.swing.JLabel texto1;
+    private javax.swing.JLabel texto2;
+    private javax.swing.JLabel texto3;
+    private javax.swing.JLabel texto6;
+    // End of variables declaration                   
+}
 
