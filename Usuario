@@ -1,0 +1,149 @@
+/*
+ * Este archivo está destinado a ser parte de un sistema de cajero automático.
+ * Proporciona una interfaz gráfica para que los usuarios creen una cuenta.
+ */
+package cajero;
+
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+
+/**
+ * La clase Usuario representa la interfaz gráfica para que los usuarios creen una cuenta.
+ * Extiende de JFrame.
+ */
+public class Usuario extends javax.swing.JFrame {
+    // Declaración de un objeto de la clase Fondo para establecer una imagen de fondo.
+    public Fondo imagen = new Fondo(); 
+
+    /**
+     * Constructor de la clase Usuario.
+     * Inicializa los componentes de la interfaz gráfica.
+     */
+    public Usuario() {
+        // Establecer el panel de fondo en el contenido del JFrame.
+        this.setContentPane(imagen);
+        initComponents();
+        setResizable(false);
+        
+        /* Configuración de los botones */
+        confirmar.setIcon(setIcono("/imagenes/confirmar.png", confirmar));
+        confirmar.setPressedIcon(setIconoPresionado("/imagenes/confirmar.png", confirmar, 30, 30));
+    }
+
+    /**
+     * Método generado automáticamente que inicializa los componentes de la interfaz gráfica.
+     * Este método es generado por el Editor de Formularios de NetBeans.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents() {
+        // Declaración e inicialización de los componentes de la interfaz.
+        texto14 = new javax.swing.JLabel();
+        nombres = new javax.swing.JTextField();
+        apellidos = new javax.swing.JTextField();
+        nuevcont = new javax.swing.JTextField();
+        repnuevcont = new javax.swing.JTextField();
+        texto13 = new javax.swing.JLabel();
+        texto12 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        texto9 = new javax.swing.JLabel();
+        texto10 = new javax.swing.JLabel();
+        texto11 = new javax.swing.JLabel();
+        confirmar = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        // Configuración de otros componentes de la interfaz gráfica...
+        // ...
+
+    }// </editor-fold>                        
+
+    // Método actionPerformed para los campos de texto...
+
+    /**
+     * Método principal que inicia la aplicación.
+     * Crea una instancia de la clase Usuario y la hace visible.
+     */
+    public static void main(String args[]) {
+        /* Configuración del look and feel */
+        // ...
+
+        /* Crear y mostrar la ventana */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Usuario().setVisible(true);
+            }
+        });
+    }
+    
+    /**
+     * Clase interna que representa un panel con una imagen de fondo.
+     * Extiende de JPanel.
+     */
+    class Fondo extends JPanel {
+
+        private Image imagen;
+
+        @Override
+        public void paint(Graphics g) {
+            imagen = new ImageIcon(getClass().getResource("/imagenes/fondo.png")).getImage();
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+            setOpaque(false);
+            super.paint(g);
+        }
+    }
+      
+    /**
+     * Método para establecer un ícono en un botón.
+     * 
+     * @param url La URL del archivo de imagen.
+     * @param b El botón en el que se establecerá el ícono.
+     * @return El ícono establecido en el botón.
+     */
+     public Icon setIcono(String url, JButton b){
+         ImageIcon icon = new ImageIcon(getClass().getResource(url)); 
+         int ancho = b.getWidth();
+         int alto = b.getHeight();
+         ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(ancho, alto, Image.SCALE_DEFAULT)); 
+         return icono;
+     }
+     
+    /**
+     * Método para establecer un ícono presionado en un botón.
+     * 
+     * @param url La URL del archivo de imagen.
+     * @param b El botón en el que se establecerá el ícono presionado.
+     * @param ancho Ancho del botón.
+     * @param alto Alto del botón.
+     * @return El ícono presionado establecido en el botón.
+     */
+       public Icon setIconoPrecionado(String url,JButton b,int ancho,int alto){
+       
+         ImageIcon icon= new ImageIcon(getClass().getResource(url));
+          int  width = b.getWidth()- ancho;
+          int height = b.getHeight() - alto;
+          ImageIcon icono = new ImageIcon(icon.getImage().getScaledInstance(width,height,Image.SCALE_DEFAULT));
+          return icono;
+     }
+    
+   
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JTextField apellidos;
+    private javax.swing.JButton confirmar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextField nombres;
+    private javax.swing.JTextField nuevcont;
+    private javax.swing.JTextField repnuevcont;
+    private javax.swing.JLabel texto10;
+    private javax.swing.JLabel texto11;
+    private javax.swing.JLabel texto12;
+    private javax.swing.JLabel texto13;
+    private javax.swing.JLabel texto14;
+    private javax.swing.JLabel texto9;
+    // End of variables declaration                   
+}
