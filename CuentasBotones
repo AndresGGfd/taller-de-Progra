@@ -197,12 +197,7 @@ public class CuentasBotones extends javax.swing.JFrame {
           return icono;
      }
     // Variables  declaradas  definidas no modificar                   
-    private javax.swing.JButton confirmar;
-    private javax.swing.JLabel imagen2;
-    private javax.swing.JTextField numCuenta;
-    private javax.swing.JLabel texto1;
-    private javax.swing.JLabel texto4;
-    private javax.swing.JLabel texto6;
+ private javax.swing.JPanel panelDeCuentas;
     // fin                  
 }
     
